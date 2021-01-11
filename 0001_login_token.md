@@ -2,7 +2,10 @@
 
 ### bash> create new token 
 ```bash
-curl -k -X POST "https://10.10.10.5/api/user/login" -H  "accept: application/json" -H  "content-type: application/json, Cache-Control:no-cache" -d "{ \"username\":\"admin\", \"password\":\"admin\" }"
+curl -k -X POST "https://10.10.10.5/api/user/login" \
+  -H  "accept: application/json" \
+  -H  "content-type: application/json, Cache-Control:no-cache" \
+  -d "{ \"username\":\"admin\", \"password\":\"admin\" }"
 > {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiY3JlYXRlZF9hdCI6IjIwMjEtMDEtMDhUMTk6MjU6MjkuMzIyNDg1IiwidXNlcl9zZXNzaW9uIjoiNTdhMzM1NDAtNjYxMi00OWYyLTllZTAtOWZjZTAwYWU2ZmVhIiwiZXhwIjoxNjEwMjIwMzI5fQ.jZEPBCNHviO10AWaEU7GxWEh33OyetR22qX4cg5dYTI", "id": "2d44e0a1-e3f1-4ed3-ab30-76af1d4fb24d"}
 ```
 
