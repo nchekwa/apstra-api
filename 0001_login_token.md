@@ -1,8 +1,13 @@
 # Login (auth token)
 
+### bash> create Apstra IP variable
+```bash
+export apstra_ip=10.10.10.5
+```
+
 ### bash> create new token 
 ```bash
-curl -k -X POST "https://10.10.10.5/api/user/login" \
+curl -k -X POST "https://$apstra_ip/api/user/login" \
   -H  "accept: application/json" \
   -H  "content-type: application/json, Cache-Control:no-cache" \
   -d "{ \"username\":\"admin\", \"password\":\"admin\" }"
@@ -20,7 +25,7 @@ echo $toekn
 > eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiY3JlYXRlZF9hdCI6IjIwMjEtMDEtMDhUMTk6MjU6MjkuMzIyNDg1IiwidXNlcl9zZXNzaW9uIjoiNTdhMzM1NDAtNjYxMi00OWYyLTllZTAtOWZjZTAwYWU2ZmVhIiwiZXhwIjoxNjEwMjIwMzI5fQ.jZEPBCNHviO10AWaEU7GxWEh33OyetR22qX4cg5dYTI
 ```
 
-# Authentication Section Config File
+# APSTRA Authentication Section Config File
 */etc/aos/aos.conf*
 ```text
 [authentication]
