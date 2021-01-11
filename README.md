@@ -1,2 +1,2 @@
 # apstra-api
-Juniper Apstra LAB Guid for REST API
+Juniper Apstra LAB Guide for REST API
