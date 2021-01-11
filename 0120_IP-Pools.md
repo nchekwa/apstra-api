@@ -25,7 +25,7 @@ EOT
 
 ```bash
 curl  -H "AuthToken: $token" \
-  -k -X POST "https://10.10.10.5/api/resources/ip-pools" \
+  -k -X POST "https://$apstra_ip/api/resources/ip-pools" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
   -d @/tmp/resources_ip-pools_DC1-Loopbacks.json
@@ -55,7 +55,7 @@ EOT
 
 ```bash
 curl -H "AuthToken: $token" \
-  -k -X POST "https://10.10.10.5/api/resources/ip-pools" \
+  -k -X POST "https://$apstra_ip/api/resources/ip-pools" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
   -d @/tmp/resources_ip-pools_DC1-Links.json

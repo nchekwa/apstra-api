@@ -112,7 +112,7 @@ EOT
 
 ```bash
 curl  -H "AuthToken: $token" \
-  -k -X POST "https://10.10.10.5/api/design/rack-types" \
+  -k -X POST "https://$apstra_ip/api/design/rack-types" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
   -d @/tmp/design_rack-types_L3-2xvQFX.json

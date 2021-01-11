@@ -295,7 +295,7 @@ EOT
 
 ```bash
 curl -H "AuthToken: $token" \
-  -k -X POST "https://10.10.10.5/api/design/interface-maps" \
+  -k -X POST "https://$apstra_ip/api/design/interface-maps" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
   -d @/tmp/design_interface-maps_AOS-12x10-Spine.json
