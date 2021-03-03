@@ -1,6 +1,6 @@
 # Create Rack Type Juniper 2xLeaf vQFX 12 ports
 
-![GUI](img/0050.png "Create Rack Type Juniper 2xLeaf vQFX 12 ports")
+![GUI](img/0050.png "Create Rack Type Juniper 2xLeaf vQFX 12 ports (ESI Mode)")
 
 ## API POST (create) 
 ```bash
@@ -25,7 +25,7 @@ cat <<EOT > /tmp/design_rack-types_L3-2xvQFX.json
         "unit": "G",
         "value": 10
       },
-      "label": "Leaf",
+      "label": "leaf",
       "leaf_leaf_l3_link_port_channel_id": 0
     }
   ],
