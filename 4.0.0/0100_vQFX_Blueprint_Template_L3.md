@@ -169,7 +169,7 @@ cat <<EOT > /tmp/design_templates_L3-2xvQFX.json
     "spine_asn_scheme": "distinct"
   },
   "type": "rack_based",
-  "id": "L3-2xvQFX"
+  "id": "L3_2xvQFX"
 }
 EOT
 
