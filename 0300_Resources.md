@@ -3,7 +3,7 @@ A 4-byte ASN is a 32-bit number.<br>
 ANA reserved a block of 94,967,295 ASNs (4200000000 to 4294967294) for private use.<br>
 Source: https://www.arin.net/resources/guide/asn/<br>
 <br>
-<b>Syntax:</b>
+<b>Schema:</b>
 <span style="color:gray">42</span> <span style="color:blue">XXXX</span> <span style="color:green">YYYY</span><br>
 <span style="color:gray">42</span> = Static - for private use<br>
 <span style="color:blue">XXXX</span> = DataCenter ID - DC1=0001<br> 
@@ -11,38 +11,39 @@ Source: https://www.arin.net/resources/guide/asn/<br>
 <br>
 <b>DC1 Example:</b><br>
 [ASNs – Suer Spines (ID 4200010010-19)](#asns_super_spines)<br>
-ASNs – Spines (ID 4200010020-29)<br>
-ASNs – Leafs (ID 4200010030-9999)<br>
-ASNs - Externals (65000 - 65099)<br>
+[ASNs – Spines (ID 4200010020-29)](#asns_spines)<br>
+[ASNs – Leafs (ID 4200010030-9999)](#asns_leafs)<br>
+[ASNs - Externals (65000 - 65099)](#asns_externals)<br>
 
 # IP-Pools
 Middle-Size DC require private IP range /21 for IP-Pools<br>
 <br> 
-DC1 Example:<br>
+<b>DC1 Example:</b><br>
 |- <b>10.255.0.0/21</b> (IP Pool DC1)<br>
 |-- <b>10.255.0.0/22</b> (Loopbacks) <br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.0.0/24 - Super Spine<br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.1.0/24 - Spine<br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.2.0/24 - Leaf<br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.3.0/24 - Leaf 2nd Backup Pool<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.0.0/24 - Super Spines](#ip_superspines)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.1.0/24 - Spines](#ip_spines)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.2.0/24 - Leafs](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.3.0/24 - Leafs 2nd Backup Pool](#ip_leafs)<br>
 |-- <b>10.255.4.0/22</b> (Link IPs)<br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.4.0/24 - To Generic Underlay (External)<br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.5.0/24 - Spines<>Superspines<br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.6.0/24 - Spines<>Leafs<br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.7.0/24 - Spines<>Leafs 2nd Backup Pool<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.4.0/24 - To Generic Underlay (External)](#ip_link_generic)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.5.0/24 - Spines<>Superspines](#ip_link_spines2superspines)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.6.0/24 - Spines<>Leafs](#ip_link_spines2leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.7.0/24 - Spines<>Leafs 2nd Backup Pool](#ip_link_spines2leafs)<br>
 
 # VNI
-Avalible Range: 4096 - 16777214<br>
+A VNI is a 24-bit number that is assigned to a VLAN to distinguish it from other VLANs that are on a VXLAN tunnel interface (VTI). VNI values range from 1 to 16777215 in decimal notation and from 0.0. 1 to 255.255.<br>
+<b>IMPORTANT:</b> <i>Apstra allows setting VNI in range: <b>4096 - 16'777'214</b></i><br>
 
-Syntax:<br>
-XXXX YY YYYY<br>
-XXXX = DataCenter ID - DC1=0001<br> 
-YY YYYY = VNI Customer ID<br>
+<b>Schema:</b><br>
+<span style="color:blue">XXX</span> <span style="color:green">Y YYYY</span><br>
+<span style="color:blue">XXX</span> = DataCenter ID (1-167)<br> 
+<span style="color:green">Y YYYY</span> = VNI Customer ID (0-99999)<br>
 
 DC1 Example: <br>
-VNI CustomerA: 1 00 0001 -> 1000001 <br>
-VNI CustomerB: 1 00 0002 -> 1000002 <br>
-VNI CustomerC: 1 00 0003 -> 1000003 <br>
+[VNI CustomerA: 1 0 0001](#vni_dc1) -> <span style="color:blue">1</span><span style="color:green">00001</span> <br>
+VNI CustomerB: 1 0 0002 -> <span style="color:blue">1</span><span style="color:green">00002</span> <br>
+VNI CustomerC: 1 0 0003 -> <span style="color:blue">1</span><span style="color:green">00003</span> <br>
 
 <br>
 <br>
@@ -78,7 +79,7 @@ curl  -H "AuthToken: $token" \
   -d @/tmp/resources_asn-pools_DC1-SuperSpines.json
 ```
 
-
+<a name="asns_spines"></a>
 ## ASNs – Spines (ID 20-29)
 ### API POST (create) 
 ```bash
@@ -108,7 +109,7 @@ curl  -H "AuthToken: $token" \
   -d @/tmp/resources_asn-pools_DC1-Spines.json
 ```
 
-
+<a name="asns_leafs"></a>
 ## ASNs – Leafs (ID 30-9999)
 ### API POST (create) 
 ```bash
@@ -139,7 +140,7 @@ curl -H "AuthToken: $token" \
 ```
 
 
-
+<a name="asns_externals"></a>
 ## ASNs - Externals (65000 - 65099)
 ### API POST (create) 
 ```bash
@@ -172,13 +173,14 @@ curl -H "AuthToken: $token" \
 
 
 ## ------------------------------------------------------------------------------------------------
-## DC1-Loopbacks-10.255.0.0/24 (Super Spine)
+<a name="ip_superspines"></a>
+## DC1-Loopbacks-10.255.0.0/24 (Super Spines)
 ### API POST (create)
 ```bash
-cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-SuperSpine.json
+cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-SuperSpines.json
 {
-      "id": "ip_dc1_loopbacks_superspine",
-      "display_name": "DC1-Lo-SuperSpine-10.255.0.0/24",
+      "id": "ip_dc1_loopbacks_superspines",
+      "display_name": "DC1-Lo-SuperSpines-10.255.0.0/24",
       "status": "not_in_use",
       "subnets": [
         {
@@ -198,15 +200,15 @@ curl  -H "AuthToken: $token" \
   -k -X POST "https://$apstra_ip/api/resources/ip-pools" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d @/tmp/resources_ip-pools_DC1-Loopbacks-SuperSpine.json
+  -d @/tmp/resources_ip-pools_DC1-Loopbacks-SuperSpines.json
 ```
-
-### API POST (create)  - Spine
+<a name="ip_spines"></a>
+### API POST (create)  - Spines
 ```bash
-cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-Spine.json
+cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-Spines.json
 {
-      "id": "ip_dc1_loopbacks_spine",
-      "display_name": "DC1-Lo-Spine-10.255.1.0/24",
+      "id": "ip_dc1_loopbacks_spines",
+      "display_name": "DC1-Lo-Spines-10.255.1.0/24",
       "status": "not_in_use",
       "subnets": [
         {
@@ -226,15 +228,15 @@ curl  -H "AuthToken: $token" \
   -k -X POST "https://$apstra_ip/api/resources/ip-pools" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d @/tmp/resources_ip-pools_DC1-Loopbacks-Spine.json
+  -d @/tmp/resources_ip-pools_DC1-Loopbacks-Spines.json
 ```
-
-### API POST (create)  - Leaf
+<a name="ip_leafs"></a>
+### API POST (create)  - Leafs
 ```bash
-cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-Leaf.json
+cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-Leafs.json
 {
-      "id": "ip_dc1_loopbacks_leaf",
-      "display_name": "DC1-Lo-Leaf-10.255.2.0/24",
+      "id": "ip_dc1_loopbacks_leafs",
+      "display_name": "DC1-Lo-Leafs-10.255.2.0/24",
       "status": "not_in_use",
       "subnets": [
         {
@@ -254,9 +256,10 @@ curl  -H "AuthToken: $token" \
   -k -X POST "https://$apstra_ip/api/resources/ip-pools" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d @/tmp/resources_ip-pools_DC1-Loopbacks-Leaf.json
+  -d @/tmp/resources_ip-pools_DC1-Loopbacks-Leafs.json
 ```
 
+<a name="ip_link_generic"></a>
 ## DC1-Links-10.255.4.0/24 - To Generic Underlay (external)
 ### API POST (create) 
 ```bash
@@ -284,7 +287,7 @@ curl -H "AuthToken: $token" \
   -H  "content-type: application/json" \
   -d @/tmp/resources_ip-pools_DC1-Links-To-Generic-Underlay.json
 ```
-
+<a name="ip_link_spines2superspines"></a>
 ## DC1-Links-10.255.5.0/24 - Spines<>Superspines
 ### API POST (create) 
 ```bash
@@ -313,7 +316,7 @@ curl -H "AuthToken: $token" \
   -d @/tmp/resources_ip-pools_DC1-Spines2Superspines.json
 ```
 
-
+<a name="ip_link_spines2leafs"></a>
 ## DC1-Links-10.255.6.0/24 - Spines<>Leafs
 ### API POST (create) 
 ```bash
@@ -345,7 +348,8 @@ curl -H "AuthToken: $token" \
 
 
 ## ------------------------------------------------------------------------------------------------
-## VNI DC1 (1000000 - 1999999)
+<a name="vni_dc1"></a>
+## VNI DC1 (100000 - 199999)
 ### API POST (create)
 ```bash
 cat <<EOT > /tmp/resources_vni-pools_DC1.json
@@ -355,8 +359,8 @@ cat <<EOT > /tmp/resources_vni-pools_DC1.json
   "ranges": [
     {
       "status": "pool_element_available",
-      "first": 100000,
-      "last":  199999
+      "first": 10000,
+      "last":  19999
     }
   ],
   "tags": [
