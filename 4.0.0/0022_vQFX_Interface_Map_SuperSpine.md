@@ -1,21 +1,21 @@
 # Create vQFX Interface Map (AOS-12x10-SuperSpine)
 
-![GUI](img/0020.png "Create vQFX Interface Map")
+![GUI](img/0022.png "Create vQFX Interface Map")
 
 ## API POST (create) 
 ```bash
-cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
+cat <<EOT > /tmp/design_interface-maps_AOS-12x10-SuperSpine.json
 {
-  "logical_device_id": "AOS-12x10-Spine",
+  "logical_device_id": "AOS-12x10-SuperSpine",
   "device_profile_id": "Juniper_vQFX",
-  "id": "Juniper_vQFX__AOS-12x10-Spine",
-  "label": "Juniper vQFX__AOS-12x10-Spine",
+  "id": "Juniper_vQFX__AOS-12x10-SuperSpine",
+  "label": "Juniper vQFX__AOS-12x10-SuperSpine",
   "interfaces": [
     {
       "name": "xe-0/0/0",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         1,
@@ -37,8 +37,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/1",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         2,
@@ -60,8 +60,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/2",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         3,
@@ -83,8 +83,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/3",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         4,
@@ -106,8 +106,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/4",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         5,
@@ -129,8 +129,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/5",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         6,
@@ -152,8 +152,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/6",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         7,
@@ -175,8 +175,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/7",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         8,
@@ -198,8 +198,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/8",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         9,
@@ -221,8 +221,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/9",
       "roles": [
-        "superspine",
-        "leaf"
+        "generic",
+        "spine"
       ],
       "mapping": [
         10,
@@ -244,9 +244,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/10",
       "roles": [
-        "superspine",
-        "leaf",
-        "generic"
+        "generic",
+        "spine"
       ],
       "mapping": [
         11,
@@ -268,9 +267,8 @@ cat <<EOT > /tmp/design_interface-maps_AOS-12x10-Spine.json
     {
       "name": "xe-0/0/11",
       "roles": [
-        "superspine",
-        "leaf",
-        "generic"
+        "generic",
+        "spine"
       ],
       "mapping": [
         12,
@@ -299,5 +297,5 @@ curl -H "AuthToken: $token" \
   -k -X POST "https://$apstra_ip/api/design/interface-maps" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d @/tmp/design_interface-maps_AOS-12x10-Spine.json
+  -d @/tmp/design_interface-maps_AOS-12x10-SuperSpine.json
 ```

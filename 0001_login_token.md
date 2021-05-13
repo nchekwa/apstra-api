@@ -2,7 +2,7 @@
 
 ### bash> create Apstra IP variable
 ```bash
-export apstra_ip=10.10.10.5
+export apstra_ip=10.10.10.4
 ```
 
 ### bash> create new token and manualy assign to 'token' variable
@@ -20,7 +20,7 @@ export token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiY3
 ### bash> create new token and automaticly assign to 'token' variable
 Remember to change credentials !
 ```bash
-token=`curl --silent \
+export token=`curl --silent \
   -k -X POST "https://$apstra_ip/api/user/login" \
   -H  "accept: application/json" \
   -H  "content-type: application/json, Cache-Control:no-cache" \

@@ -4,7 +4,7 @@
 
 ## API POST (create) 
 ```bash
-cat <<EOT > /tmp/design_rack-types_L3-2xvQFX.json
+cat <<EOT > /tmp/design_rack-types_ESI_vQFX.json
 {
   "description": "",
   "tags": [],
@@ -67,14 +67,14 @@ cat <<EOT > /tmp/design_rack-types_L3-2xvQFX.json
         "unit": "G",
         "value": 10
       },
-      "label": "vQFX",
+      "label": "leaf",
       "mlag_vlan_id": 0,
       "leaf_leaf_l3_link_port_channel_id": 0
     }
   ],
   "access_switches": [],
-  "id": "L3-2xvQFX",
-  "display_name": "L3-2xvQFX",
+  "id": "ESI_vQFX",
+  "display_name": "ESI vQFX",
   "fabric_connectivity_design": "l3clos"
 }
 EOT
@@ -85,5 +85,5 @@ curl  -H "AuthToken: $token" \
   -k -X POST "https://$apstra_ip/api/design/rack-types" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d @/tmp/design_rack-types_L3-2xvQFX.json
+  -d @/tmp/design_rack-types_ESI_vQFX.json
 ```

@@ -1,10 +1,10 @@
-# Create vQFX AOS Logical Model (AOS-12x10-Spine)
+# Create vQFX AOS Logical Model (AOS-12x10-SuperSpine)
 
-![GUI](img/0010.png "Create vQFX AOS Logical Model")
+![GUI](img/0012.png "Create vQFX AOS Logical Model")
 
 ## API POST (create) 
 ```bash
-cat <<EOT > /tmp/design_logical-devices_AOS-12x10-Spine.json
+cat <<EOT > /tmp/design_logical-devices_AOS-12x10-SuperSpine.json
 {
   "panels": [
     {
@@ -19,33 +19,21 @@ cat <<EOT > /tmp/design_logical-devices_AOS-12x10-Spine.json
       },
       "port_groups": [
         {
-          "count": 10,
+          "count": 12,
           "speed": {
             "unit": "G",
             "value": 10
           },
           "roles": [
-            "superspine",
-            "leaf"
-          ]
-        },
-        {
-          "count": 2,
-          "speed": {
-            "unit": "G",
-            "value": 10
-          },
-          "roles": [
-            "superspine",
-            "leaf",
-            "generic"
+            "generic",
+            "spine"
           ]
         }
       ]
     }
   ],
-  "display_name": "AOS-12x10-Spine",
-  "id": "AOS-12x10-Spine"
+  "display_name": "AOS-12x10-SuperSpine",
+  "id": "AOS-12x10-SuperSpine"
 }
 EOT
 ```
@@ -55,5 +43,5 @@ curl -H "AuthToken: $token" \
   -k -X POST "https://$apstra_ip/api/design/logical-devices" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d @/tmp/design_logical-devices_AOS-12x10-Spine.json
+  -d @/tmp/design_logical-devices_AOS-12x10-SuperSpine.json
 ```

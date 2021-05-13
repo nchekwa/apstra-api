@@ -1,10 +1,10 @@
 # Create Blueprint Template L3 vQFX
 
-![GUI](img/0100.png "Create Blueprint Template L3 vQFX")
+![GUI](img/0100.png "Create Blueprint Template ESI vQFX Pod")
 
 ## API POST (create) 
 ```bash
-cat <<EOT > /tmp/design_templates_L3-2xvQFX.json
+cat <<EOT > /tmp/design_templates_ESI-vQFX-Pod.json
 {
   "external_routing_policy": {
     "export_policy": {
@@ -22,7 +22,7 @@ cat <<EOT > /tmp/design_templates_L3-2xvQFX.json
     "aggregate_prefixes": [],
     "label": "Default_immutable"
   },
-  "display_name": "L3-2xvQFX",
+  "display_name": "ESI vQFX Pod",
   "virtual_network_policy": {
     "overlay_control_protocol": "evpn"
   },
@@ -81,15 +81,17 @@ cat <<EOT > /tmp/design_templates_L3-2xvQFX.json
       "value": 10
     }
   },
+  "created_at": "2021-05-07T15:29:43.816087Z",
   "rack_type_counts": [
     {
-      "rack_type_id": "L3-2xvQFX",
-      "count": 2
+      "rack_type_id": "ESI_vQFX",
+      "count": 1
     }
   ],
   "dhcp_service_intent": {
     "active": true
   },
+  "last_modified_at": "2021-05-12T13:49:27.415167Z",
   "rack_types": [
     {
       "description": "",
@@ -153,32 +155,33 @@ cat <<EOT > /tmp/design_templates_L3-2xvQFX.json
             "unit": "G",
             "value": 10
           },
-          "label": "vQFX",
+          "label": "leaf",
           "mlag_vlan_id": 0,
           "leaf_leaf_l3_link_port_channel_id": 0
         }
       ],
       "access_switches": [],
-      "id": "L3-2xvQFX",
-      "display_name": "L3-2xvQFX",
-      "fabric_connectivity_design": "l3clos"
+      "id": "ESI_vQFX",
+      "display_name": "ESI vQFX",
+      "fabric_connectivity_design": "l3clos",
+      "created_at": "1970-01-01T00:00:00.000000Z",
+      "last_modified_at": "2021-05-12T13:39:31.542278Z"
     }
   ],
   "capability": "pod",
   "asn_allocation_policy": {
-    "spine_asn_scheme": "distinct"
+    "spine_asn_scheme": "single"
   },
   "type": "rack_based",
-  "id": "L3_2xvQFX"
+  "id": "ESI_vQFX_Pod"
 }
 EOT
-
 ```
 
 ```bash
-curl -H "AuthToken: $token" \
+curl -s -H "AuthToken: $token" \
   -k -X POST "https://$apstra_ip/api/design/templates" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d @/tmp/design_templates_L3-2xvQFX.json
+  -d @/tmp/design_templates_ESI-vQFX-Pod.json
 ```
