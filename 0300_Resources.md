@@ -40,7 +40,7 @@ A VNI is a 24-bit number that is assigned to a VLAN to distinguish it from other
 <span style="color:blue">XXX</span> = DataCenter ID (1-167)<br> 
 <span style="color:green">Y YYYY</span> = VNI Customer ID (0-99999)<br>
 
-DC1 Example: <br>
+<b>DC1 Example:</b><br>
 [VNI CustomerA: 1 0 0001](#vni_dc1) -> <span style="color:blue">1</span><span style="color:green">00001</span> <br>
 VNI CustomerB: 1 0 0002 -> <span style="color:blue">1</span><span style="color:green">00002</span> <br>
 VNI CustomerC: 1 0 0003 -> <span style="color:blue">1</span><span style="color:green">00003</span> <br>
