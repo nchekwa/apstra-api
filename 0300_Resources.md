@@ -1,15 +1,16 @@
-# ASN
+# ASNs
 A 4-byte ASN is a 32-bit number.<br>
 ANA reserved a block of 94,967,295 ASNs (4200000000 to 4294967294) for private use.<br>
 Source: https://www.arin.net/resources/guide/asn/<br>
 <br>
-Syntax:<br>
-42 XXXX YYYY<br>
-XXXX = DataCenter ID - DC1=0001<br> 
-YYYY = Device ID<br>
+<b>Syntax:</b>
+<span style="color:gray">42</span> <span style="color:blue">XXXX</span> <span style="color:green">YYYY</span><br>
+<span style="color:gray">42</span> = Static - for private use<br>
+<span style="color:blue">XXXX</span> = DataCenter ID - DC1=0001<br> 
+<span style="color:green">YYYY</span> = Device ID<br>
 <br>
-DC1 Example:<br>
-ASNs – Suer Spines (ID 4200010010-19)<br>
+<b>DC1 Example:</b><br>
+[ASNs – Suer Spines (ID 4200010010-19)](#asns_super_spines)<br>
 ASNs – Spines (ID 4200010020-29)<br>
 ASNs – Leafs (ID 4200010030-9999)<br>
 ASNs - Externals (65000 - 65099)<br>
@@ -48,6 +49,7 @@ VNI CustomerC: 1 00 0003 -> 1000003 <br>
 <br>
 
 ## ------------------------------------------------------------------------------------------------
+<a name="asns_super_spines"></a>
 ## ASNs – Suer Spines (ID 10-19)
 ```bash
 cat <<EOT > /tmp/resources_asn-pools_DC1-SuperSpines.json
