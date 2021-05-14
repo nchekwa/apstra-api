@@ -21,15 +21,20 @@ Middle-Size DC require private IP range /21 for IP-Pools<br>
 <b>DC1 Example:</b><br>
 |- <b>10.255.0.0/21</b> (IP Pool DC1)<br>
 |-- <b>10.255.0.0/22</b> (Loopbacks) <br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.0.0/24 - Super Spines](#ip_superspines)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.1.0/24 - Spines](#ip_spines)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.2.0/24 - Leafs](#ip_leafs)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.3.0/24 - Leafs 2nd Backup Pool](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.0.0/28 - (16 IPs) - Super Spines](#ip_superspines)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.0.16/28 - (16 IPs) - Spines](#ip_spines)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.0.32/25 - (64 IPs) - Leafs](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.0.128/25 - (128 IPs) - Leafs 2nd Pool](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> 10.255.1.0/24 - (256 IPs) - Reserved<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.2.0/24 - (256 IPs) - VNI Loopbacks](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.3.0/24 - (256 IPs) - VNI Loopbacks 2nd Pool](#ip_leafs)<br>
 |-- <b>10.255.4.0/22</b> (Link IPs)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.4.0/24 - To Generic Underlay (External)](#ip_link_generic)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.5.0/24 - Spines<>Superspines](#ip_link_spines2superspines)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.6.0/24 - Spines<>Leafs](#ip_link_spines2leafs)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.7.0/24 - Spines<>Leafs 2nd Backup Pool](#ip_link_spines2leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.4.0/25 - (64 links) - To Generic Underlay (External)](#ip_link_generic)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.4.128/26 - (32 links) - Spines<>Superspines](#ip_link_spines2superspines)<br>
+&nbsp;&nbsp;&nbsp;|--> 10.255.4.192/26 - (64 IPs) Reserverd<br>
+&nbsp;&nbsp;&nbsp;|--> 10.255.5.0/24 - (256 IPs) Reserverd<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.6.0/23 - (256 links) - Spines<>Leafs](#ip_link_spines2leafs)<br>
+
 
 # VNI
 A VNI is a 24-bit number that is assigned to a VLAN to distinguish it from other VLANs that are on a VXLAN tunnel interface (VTI). VNI values range from 1 to 16777215 in decimal notation and from 0.0. 1 to 255.255.<br>
