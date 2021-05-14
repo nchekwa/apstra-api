@@ -23,16 +23,16 @@ Middle-Size DC require private IP range /21 for IP-Pools<br>
 |-- <b>10.255.0.0/22</b> (Loopbacks) <br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.0.0/28 - (16 IPs) - Super Spines](#ip_superspines)<br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.0.16/28 - (16 IPs) - Spines](#ip_spines)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.0.32/25 - (64 IPs) - Leafs](#ip_leafs)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.0.128/25 - (128 IPs) - Leafs 2nd Pool](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.0.32/27 - (32 IPs)   - Leafs](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.0.64/26 - (64 IPs)   - Leafs](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.0.128/25 - (128 IPs) - Leafs](#ip_leafs)<br>
 &nbsp;&nbsp;&nbsp;|--> 10.255.1.0/24 - (256 IPs) - Reserved<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.2.0/24 - (256 IPs) - VNI Loopbacks](#ip_leafs)<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.3.0/24 - (256 IPs) - VNI Loopbacks 2nd Pool](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.2.0/23 - (512 IPs) - VNI Loopbacks](#ip_leafs)<br>
 |-- <b>10.255.4.0/22</b> (Link IPs)<br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.4.0/25 - (64 links) - To Generic Underlay (External)](#ip_link_generic)<br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.4.128/26 - (32 links) - Spines<>Superspines](#ip_link_spines2superspines)<br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.4.192/26 - (64 IPs) Reserverd<br>
-&nbsp;&nbsp;&nbsp;|--> 10.255.5.0/24 - (256 IPs) Reserverd<br>
+&nbsp;&nbsp;&nbsp;|--> 10.255.4.192/26 - (32 links) Reserverd<br>
+&nbsp;&nbsp;&nbsp;|--> 10.255.5.0/24 - (128 links) Reserverd<br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.6.0/23 - (256 links) - Spines<>Leafs](#ip_link_spines2leafs)<br>
 
 
@@ -185,12 +185,12 @@ curl -H "AuthToken: $token" \
 cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-SuperSpines.json
 {
       "id": "ip_dc1_loopbacks_superspines",
-      "display_name": "DC1-Lo-SuperSpines-10.255.0.0/24",
+      "display_name": "DC1-Lo-SuperSpines",
       "status": "not_in_use",
       "subnets": [
         {
           "status": "pool_element_available",
-          "network": "10.255.0.0/24"
+          "network": "10.255.0.0/28"
         }
       ],
       "tags": [
@@ -213,12 +213,12 @@ curl  -H "AuthToken: $token" \
 cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-Spines.json
 {
       "id": "ip_dc1_loopbacks_spines",
-      "display_name": "DC1-Lo-Spines-10.255.1.0/24",
+      "display_name": "DC1-Lo-Spines",
       "status": "not_in_use",
       "subnets": [
         {
           "status": "pool_element_available",
-          "network": "10.255.1.0/24"
+          "network": "10.255.0.16/28"
         }
       ],
       "tags": [
@@ -235,18 +235,27 @@ curl  -H "AuthToken: $token" \
   -H  "content-type: application/json" \
   -d @/tmp/resources_ip-pools_DC1-Loopbacks-Spines.json
 ```
+
 <a name="ip_leafs"></a>
 ### API POST (create)  - Leafs
 ```bash
 cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-Leafs.json
 {
       "id": "ip_dc1_loopbacks_leafs",
-      "display_name": "DC1-Lo-Leafs-10.255.2.0/24",
+      "display_name": "DC1-Lo-Leafs",
       "status": "not_in_use",
       "subnets": [
         {
           "status": "pool_element_available",
-          "network": "10.255.2.0/24"
+          "network": "10.255.0.32/27"
+        },
+        {
+          "status": "pool_element_available",
+          "network": "10.255.0.64/26"
+        },
+        {
+          "status": "pool_element_available",
+          "network": "10.255.0.128/25"
         }
       ],
       "tags": [
@@ -264,18 +273,47 @@ curl  -H "AuthToken: $token" \
   -d @/tmp/resources_ip-pools_DC1-Loopbacks-Leafs.json
 ```
 
+<a name="ip_vni"></a>
+### API POST (create)  - VNI
+```bash
+cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-VNI.json
+{
+      "id": "ip_dc1_loopbacks_vni",
+      "display_name": "DC1-Lo-VNI",
+      "status": "not_in_use",
+      "subnets": [
+        {
+          "status": "pool_element_available",
+          "network": "10.255.2.0/23"
+        }
+      ],
+      "tags": [
+        "DC1"
+      ]
+}
+EOT
+```
+```bash
+curl  -H "AuthToken: $token" \
+  -k -X POST "https://$apstra_ip/api/resources/ip-pools" \
+  -H  "accept: application/json" \
+  -H  "content-type: application/json" \
+  -d @/tmp/resources_ip-pools_DC1-Loopbacks-Leafs.json
+```
+
+
 <a name="ip_link_generic"></a>
-## DC1-Links-10.255.4.0/24 - To Generic Underlay (external)
+## DC1-Links - To Generic Underlay (external)
 ### API POST (create) 
 ```bash
 cat <<EOT > /tmp/resources_ip-pools_DC1-Links-To-Generic-Underlay.json
 {
       "id": "ip_dc1_links_to_generic_underlay",
-      "display_name": "DC1-Links-To-Generic-Underlay-10.255.4.0/24",
+      "display_name": "DC1-Links-To-Generic-Underlay",
       "subnets": [
         {
           "status": "pool_element_available",
-          "network": "10.255.4.0/24"
+          "network": "10.255.4.0/25"
         }
       ],
       "tags": [
@@ -292,18 +330,19 @@ curl -H "AuthToken: $token" \
   -H  "content-type: application/json" \
   -d @/tmp/resources_ip-pools_DC1-Links-To-Generic-Underlay.json
 ```
+
 <a name="ip_link_spines2superspines"></a>
-## DC1-Links-10.255.5.0/24 - Spines<>Superspines
+## DC1-Links - Spines<>Superspines
 ### API POST (create) 
 ```bash
 cat <<EOT > /tmp/resources_ip-pools_DC1-Spines2Superspines.json
 {
       "id": "ip_dc1_links_spines2superspines",
-      "display_name": "DC1-Links-Spines2Superspines-10.255.5.0/24",
+      "display_name": "DC1-Links-Spines2Superspines",
       "subnets": [
         {
           "status": "pool_element_available",
-          "network": "10.255.5.0/24"
+          "network": "10.255.4.128/26"
         }
       ],
       "tags": [
@@ -322,17 +361,17 @@ curl -H "AuthToken: $token" \
 ```
 
 <a name="ip_link_spines2leafs"></a>
-## DC1-Links-10.255.6.0/24 - Spines<>Leafs
+## DC1-Links - Spines<>Leafs
 ### API POST (create) 
 ```bash
 cat <<EOT > /tmp/resources_ip-pools_DC1-Spines2Leafs.json
 {
       "id": "ip_dc1_links_spines2leafs",
-      "display_name": "DC1-Links-Spines2Leafs-10.255.6.0/24",
+      "display_name": "DC1-Links-Spines2Leafs",
       "subnets": [
         {
           "status": "pool_element_available",
-          "network": "10.255.6.0/24"
+          "network": "10.255.6.0/23"
         }
       ],
       "tags": [
