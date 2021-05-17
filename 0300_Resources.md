@@ -1,6 +1,6 @@
 # ASNs
-A 4-byte ASN is a 32-bit number.<br>
-ANA reserved a block of 94,967,295 ASNs (4200000000 to 4294967294) for private use.<br>
+A 2-byte ASN is a 16-bit number. This format provides for 65,536 ASNs (0 to 65535). Internet Assigned Numbers Authority (IANA) reserved 1,023 of them (64512 to 65534) for private use.<br>
+A 4-byte ASN is a 32-bit number. Internet Assigned Numbers Authority (IANA) reserved a block of 94,967,295 ASNs (4200000000 to 4294967294) for private use.<br>
 Source: https://www.arin.net/resources/guide/asn/<br>
 <br>
 <b>Schema:</b>
@@ -10,9 +10,9 @@ Source: https://www.arin.net/resources/guide/asn/<br>
 <span style="color:green">YYYY</span> = Device ID<br>
 <br>
 <b>DC1 Example:</b><br>
-[ASNs – Suer Spines (ID 4200010010-19)](#asns_super_spines)<br>
-[ASNs – Spines (ID 4200010020-29)](#asns_spines)<br>
-[ASNs – Leafs (ID 4200010030-9999)](#asns_leafs)<br>
+[ASNs – Suer Spines (ID 4200010010 - 4200010019)](#asns_super_spines)<br>
+[ASNs – Spines (ID 4200010020 - 4200010029)](#asns_spines)<br>
+[ASNs – Leafs (ID 4200010030 - 4200019999)](#asns_leafs)<br>
 [ASNs - Externals (65000 - 65099)](#asns_externals)<br>
 
 # IP-Pools
