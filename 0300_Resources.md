@@ -27,14 +27,20 @@ Middle-Size DC require private IP range /21 for IP-Pools<br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.0.64/26 - (64 IPs)   - Leafs](#ip_leafs)<br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.0.128/25 - (128 IPs) - Leafs](#ip_leafs)<br>
 &nbsp;&nbsp;&nbsp;|--> 10.255.1.0/24 - (256 IPs) - Reserved<br>
-&nbsp;&nbsp;&nbsp;|--> [10.255.2.0/23 - (512 IPs) - VNI Loopbacks](#ip_leafs)<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.2.0/24 - (256 IPs) - Reserved<br>
+&nbsp;&nbsp;&nbsp;|--> [10.255.2.0/24 - (256 IPs) - Reserved<br>
 |-- <b>10.255.4.0/22</b> (Link IPs)<br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.4.0/25 - (64 links) - To Generic Underlay (External)](#ip_link_generic)<br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.4.128/26 - (32 links) - Spines<>Superspines](#ip_link_spines2superspines)<br>
 &nbsp;&nbsp;&nbsp;|--> 10.255.4.192/26 - (32 links) Reserverd<br>
 &nbsp;&nbsp;&nbsp;|--> 10.255.5.0/24 - (128 links) Reserverd<br>
 &nbsp;&nbsp;&nbsp;|--> [10.255.6.0/23 - (256 links) - Spines<>Leafs](#ip_link_spines2leafs)<br>
-
+|-- <b>169.254.0.0/16</b> (VNI Loopbacks)  <br>
+&nbsp;&nbsp;&nbsp;|--> [169.254.0.0/16 - (65534 IPs) - VNI Loopbacks](#ip_vni) <font color="red">\*</font><br>
+<br>
+<font color="red">\*</font>&nbsp; Please note that VNI Loopbacks are visibile inside VNI. You needs 1xIP per VNI / per Leaf.<br>
+VNI Loopbacks can overlap between VNI - so you can use same range ie. 169.254.254.0/23 for each VNI.<br>
+VNI Loopbacks cannot overlap with customer IP Network - thats is why I propose to use not routable link-local IPv4 address based on RFC 3927. <br>
 
 # VNI
 A VNI is a 24-bit number that is assigned to a VLAN to distinguish it from other VLANs that are on a VXLAN tunnel interface (VTI). VNI values range from 1 to 16777215 in decimal notation and from 0.0. 1 to 255.255.<br>
@@ -274,17 +280,17 @@ curl  -H "AuthToken: $token" \
 ```
 
 <a name="ip_vni"></a>
-### API POST (create)  - VNI
+### API POST (create)  - VNI Loopbacks
 ```bash
-cat <<EOT > /tmp/resources_ip-pools_DC1-Loopbacks-VNI.json
+cat <<EOT > /tmp/resources_ip-pools_DC1-VNI-Loopbacks.json
 {
-      "id": "ip_dc1_loopbacks_vni",
-      "display_name": "DC1-Lo-VNI",
+      "id": "ip_dc1_vni_loopbacks",
+      "display_name": "DC1-VNI-Loopbacks",
       "status": "not_in_use",
       "subnets": [
         {
           "status": "pool_element_available",
-          "network": "10.255.2.0/23"
+          "network": "169.254.0.0/16"
         }
       ],
       "tags": [
@@ -298,7 +304,7 @@ curl  -H "AuthToken: $token" \
   -k -X POST "https://$apstra_ip/api/resources/ip-pools" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d @/tmp/resources_ip-pools_DC1-Loopbacks-Leafs.json
+  -d @/tmp/resources_ip-pools_DC1-VNI-Loopbacks.json
 ```
 
 
