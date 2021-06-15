@@ -54,7 +54,7 @@ curl -s -H "AuthToken: $token" \
   -k -X PUT "https://$apstra_ip/api/blueprints/$blueprint_id/resource_groups/ip/superspine_loopback_ips" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d  '{"pool_ids": ["ip_dc1_loopbacks_superspine"] }'
+  -d  '{"pool_ids": ["ip_dc1_loopbacks_superspines"] }'
 ```
 
 ## Loopback IPs - Spines - [spine_loopback_ips]
@@ -63,7 +63,7 @@ curl -s -H "AuthToken: $token" \
   -k -X PUT "https://$apstra_ip/api/blueprints/$blueprint_id/resource_groups/ip/spine_loopback_ips" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d  '{"pool_ids": ["ip_dc1_loopbacks_spine"] }'
+  -d  '{"pool_ids": ["ip_dc1_loopbacks_spines"] }'
 ```
 
 
@@ -73,7 +73,7 @@ curl -s -H "AuthToken: $token" \
   -k -X PUT "https://$apstra_ip/api/blueprints/$blueprint_id/resource_groups/ip/leaf_loopback_ips" \
   -H  "accept: application/json" \
   -H  "content-type: application/json" \
-  -d  '{"pool_ids": ["ip_dc1_loopbacks_leaf"] }'
+  -d  '{"pool_ids": ["ip_dc1_loopbacks_leafs"] }'
 ```
 
 
