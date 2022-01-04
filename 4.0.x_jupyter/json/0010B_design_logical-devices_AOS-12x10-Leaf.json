@@ -1,0 +1,40 @@
+{
+  "panels": [
+    {
+      "panel_layout": {
+        "row_count": 1,
+        "column_count": 12
+      },
+      "port_indexing": {
+        "order": "T-B, L-R",
+        "start_index": 1,
+        "schema": "absolute"
+      },
+      "port_groups": [
+        {
+          "count": 4,
+          "speed": {
+            "unit": "G",
+            "value": 10
+          },
+          "roles": [
+            "generic",
+            "spine"
+          ]
+        },
+        {
+          "count": 8,
+          "speed": {
+            "unit": "G",
+            "value": 10
+          },
+          "roles": [
+            "generic"
+          ]
+        }
+      ]
+    }
+  ],
+  "display_name": "AOS-12x10-Leaf",
+  "id": "AOS-12x10-Leaf"
+}
