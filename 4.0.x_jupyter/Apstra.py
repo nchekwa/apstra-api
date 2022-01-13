@@ -46,8 +46,9 @@ class Apstra():
             print(f"=<= Status (expect {expected}): {resp.status} {code_desc}")
             if resp.status != expected:
                 print("=<= Body: ")
-                obj = json.loads(resp.data.decode())
-                print(json.dumps(obj, indent=4))
+                if resp.data is not None:
+                    obj = json.loads(resp.data.decode())
+                    print(json.dumps(obj, indent=4))
         else:
             print(f"=<= Status: {resp.status} {code_desc}")
         return resp
@@ -111,6 +112,13 @@ class Apstra():
     def search(self, path, search_key, search_value):
         resp = self.http_get(path, expected=200)
         resp_body = json.loads(resp.data.decode())
+
+        # In case of return reponse is not 'items' ie. for 'virtual-networks'
+        path_slashparts = path.split('/')
+        items = path_slashparts[-1].replace('-', '_')
+        if not (resp_body[items] is None):
+            resp_body['items'] = resp_body[items]
+
         if type(resp_body['items']) is list:
             for j in resp_body['items']:
                 if j[search_key] == search_value:
