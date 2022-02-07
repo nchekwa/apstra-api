@@ -143,14 +143,14 @@ class Apstra():
         print(f"=<= Token: {self.token}")
     
     def commit(self, bp_id, description='commit by script') -> urllib3.response.HTTPResponse:
-        # get revision id
-        revision_url = f"/api/blueprints/{bp_id}/revisions"
-        revision_data = json.loads(self.http_get(revision_url,expected=200).data)
-        revision_id = int(revision_data["items"][-1]["revision_id"]) + 10
+        # get diff-status
+        staging_url = f"/api/blueprints/{bp_id}/diff-status"
+        staging_data = json.loads(self.http_get(staging_url,expected=200).data)
+        staging_id = int(staging_data["staging_version"])
 
         commit_url = f"/api/blueprints/{bp_id}/deploy?async=full"
         commit_data = {
-            "version": revision_id,
+            "version": staging_id,
             "description": description
         }
         resp = self.http_put(commit_url, commit_data, expected=202)
