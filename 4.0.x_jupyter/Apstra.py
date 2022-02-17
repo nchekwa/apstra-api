@@ -116,7 +116,7 @@ class Apstra():
         # In case of return reponse is not 'items' ie. for 'virtual-networks'
         path_slashparts = path.split('/')
         items = path_slashparts[-1].replace('-', '_')
-        if not (resp_body[items] is None):
+        if not (resp_body.get(items) is None):
             resp_body['items'] = resp_body[items]
 
         if type(resp_body['items']) is list:
