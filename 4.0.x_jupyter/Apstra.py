@@ -65,8 +65,9 @@ class Apstra():
             print(f"=<= Status (expect {expected}): {resp.status} {code_desc}")
             if resp.status != expected:
                 print("=<= Body: ")
-                obj = json.loads(resp.data.decode())
-                print(json.dumps(obj, indent=4))
+                if resp.data is not None:
+                    obj = json.loads(resp.data.decode())
+                    print(json.dumps(obj, indent=4))
         else:
             print(f"=<= Status: {resp.status} {code_desc}")
         return resp
@@ -82,8 +83,9 @@ class Apstra():
             print(f"=<= Status (expect {expected}): {resp.status}")
             if resp.status != expected:
                 print("=<= Body: ")
-                obj = json.loads(resp.data.decode())
-                print(json.dumps(obj, indent=4))
+                if resp.data is not None:
+                    obj = json.loads(resp.data.decode())
+                    print(json.dumps(obj, indent=4))
         else:
             print(f"=<= Status: {resp.status}")
         return resp
@@ -99,8 +101,9 @@ class Apstra():
             print(f"=<= Status (expect {expected}): {resp.status}")
             if resp.status != expected:
                 print("=<= Body: ")
-                obj = json.loads(resp.data.decode())
-                print(json.dumps(obj, indent=4))
+                if resp.data is not None:
+                    obj = json.loads(resp.data.decode())
+                    print(json.dumps(obj, indent=4))
         else:
             print(f"=<= Status: {resp.status}")
         return resp
